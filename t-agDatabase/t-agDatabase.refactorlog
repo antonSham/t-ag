@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="ab3e18e6-9e3a-484b-9d22-b1d11a624446" ChangeDateTime="12/09/2017 14:36:53">
+    <Property Name="ElementName" Value="[dbo].[Participant].[age]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Participant]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Age" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="5bfb1bf0-915b-47f4-968c-bf0cd1f02988" ChangeDateTime="12/09/2017 14:45:21">
+    <Property Name="ElementName" Value="[dbo].[FK_TourId]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[TourFeedback]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FK_TourFeedback_ToTour]" />
+  </Operation>
+</Operations>
