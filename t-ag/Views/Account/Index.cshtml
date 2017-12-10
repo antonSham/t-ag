@@ -1,0 +1,15 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    @if (ViewBag.authorized)
+    {
+        <h2>Hello, @ViewBag.name</h2>
+        <p>role: @ViewBag.role</p>
+    }
+    else
+    {
+        <p>You are not authorized</p>
+    }
+</div>

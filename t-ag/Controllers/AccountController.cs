@@ -19,15 +19,21 @@ namespace t_ag.Controllers
         }
 
         // GET: Account
-        public string Index(RequestContext requestContext)
+        public ActionResult Index()
         {
-            List<User> L = UserDAO.getAllUsers();
+            if (Session["User"] != null)
+            {
+                ViewBag.authorized = true;
+                User user = (User)Session["User"];
+                ViewBag.name = user.login;
+                ViewBag.role = user.role;
+            }
+            else
+            {
+                ViewBag.authorized = false;
+            }
 
-            String str = "";
-
-            L.ForEach(el => str += el.toString() + "<br />");
-
-            return UserDAO.getUserById(1).toString() + "<br />Users <br />" + str;
+            return View();
         } 
     }
 }
