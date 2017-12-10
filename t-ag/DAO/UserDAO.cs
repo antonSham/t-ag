@@ -13,9 +13,11 @@ namespace t_ag.DAO
 {
     public static class UserDAO
     {
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         private static string connectonString = @"Data Source=LOCALHOST\SQLEXPRESS;" + @"Initial Catalog=t-agDatabase;" + @"Integrated Security=True;" + @"Pooling=False;";
         public static List<User> getAllUsers()
         {
+            logger.Info("Get all users");
             List<User> users = new List<User>();
             try
             {
@@ -36,6 +38,7 @@ namespace t_ag.DAO
                 } 
             } catch (SqlException ex)
             {
+                logger.Error("Cannot get all users: " + ex.Message);
                 throw ex;
             }
             return users;
@@ -43,6 +46,7 @@ namespace t_ag.DAO
 
         public static int addUser(User user)
         {
+            logger.Info("Add user");
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectonString))
@@ -70,12 +74,14 @@ namespace t_ag.DAO
             }
             catch (SqlException ex)
             {
+                logger.Error("Cannot add user: " + ex.Message);
                 throw ex;
             }
         }
 
         public static User getUserById(int id)
         {
+            logger.Info("Get user by id: " + id);
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectonString))
@@ -101,11 +107,13 @@ namespace t_ag.DAO
             }
             catch (SqlException ex)
             {
+                logger.Error("Cannot get user by id (Id: " + id + "): " + ex.Message);
                 throw ex;
             }
             catch (InvalidOperationException ex)
             {
                 // No such id
+                logger.Error("Cannot get user by id (Wrong id: " + id + "): " + ex.Message);
                 throw ex;
             }
         }

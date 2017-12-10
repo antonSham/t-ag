@@ -13,9 +13,11 @@ namespace t_ag.DAO
 {
     class OrderDAO
     {
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         private static string connectonString = @"Data Source=LOCALHOST\SQLEXPRESS;" + @"Initial Catalog=t-agDatabase;" + @"Integrated Security=True;" + @"Pooling=False;";
         public static List<Order> getAllOrders()
         {
+            logger.Info("Get all orders");
             List<Order> orders = new List<Order>();
             try
             {
@@ -50,6 +52,7 @@ namespace t_ag.DAO
             }
             catch (SqlException ex)
             {
+                logger.Error("Cannot get all orders: " + ex.Message);
                 throw ex;
             }
             return orders;
@@ -57,6 +60,7 @@ namespace t_ag.DAO
 
         public static int addOrder(Order order)
         {
+            logger.Info("Add order");
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectonString))
@@ -88,12 +92,14 @@ namespace t_ag.DAO
             }
             catch (SqlException ex)
             {
+                logger.Error("Cannot add order" + ex.Message);
                 throw ex;
             }
         }
 
         private static void addParticipant(int orderId, int participantId)
         {
+            logger.Info("Add participant");
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectonString))
@@ -109,12 +115,14 @@ namespace t_ag.DAO
             }
             catch (SqlException ex)
             {
+                logger.Error("Cannot add participant" + ex.Message);
                 throw ex;
             }
         }
 
         public static Order getOrderById(int id)
         {
+            logger.Info("Get order by id: " + id);
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectonString))
@@ -151,11 +159,13 @@ namespace t_ag.DAO
             }
             catch (SqlException ex)
             {
+                logger.Error("Cannot get order by id (Id: " + id + "): " + ex.Message);
                 throw ex;
             }
             catch (InvalidOperationException ex)
             {
                 // No such id
+                logger.Error("Cannot get order by id (Wrong id: " + id + "): " + ex.Message);
                 throw ex;
             }
         }

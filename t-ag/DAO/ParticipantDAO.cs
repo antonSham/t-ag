@@ -13,9 +13,11 @@ namespace t_ag.DAO
 {
     class ParticipantDAO
     {
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         private static string connectonString = @"Data Source=LOCALHOST\SQLEXPRESS;" + @"Initial Catalog=t-agDatabase;" + @"Integrated Security=True;" + @"Pooling=False;";
         public static List<Participant> getAllParticipants()
         {
+            logger.Info("Get all participants");
             List<Participant> participants = new List<Participant>();
             try
             {
@@ -37,6 +39,7 @@ namespace t_ag.DAO
             }
             catch (SqlException ex)
             {
+                logger.Error("Cannot get all participants: " + ex.Message);
                 throw ex;
             }
             return participants;
@@ -44,6 +47,7 @@ namespace t_ag.DAO
 
         public static int addParticipant(Participant participant)
         {
+            logger.Info("Add participant");
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectonString))
@@ -71,12 +75,14 @@ namespace t_ag.DAO
             }
             catch (SqlException ex)
             {
+                logger.Error("Cannot add participant: " + ex.Message);
                 throw ex;
             }
         }
 
         public static Participant getParticipantById(int id)
         {
+            logger.Info("Get participant by id: " + id);
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectonString))
@@ -102,11 +108,13 @@ namespace t_ag.DAO
             }
             catch (SqlException ex)
             {
+                logger.Error("Cannot get participant by id (Id: " + id + "): " + ex.Message);
                 throw ex;
             }
             catch (InvalidOperationException ex)
             {
                 // No such id
+                logger.Error("Cannot get participant by id (Wrong id: " + id + "): " + ex.Message);
                 throw ex;
             }
         }

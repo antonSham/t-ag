@@ -25,7 +25,7 @@ namespace t_ag.Controllers
 
             L.ForEach(el => str += el.toString() + "<br />");
 
-            return UserDAO.getUserById(23).toString() + "<br />Users <br />" + str;
+            return UserDAO.getUserById(1).toString() + "<br />Users <br />" + str;
         } 
     }
 }

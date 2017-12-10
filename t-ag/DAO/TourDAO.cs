@@ -13,9 +13,11 @@ namespace t_ag.DAO
 {
     class TourDAO
     {
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         private static string connectonString = @"Data Source=LOCALHOST\SQLEXPRESS;" + @"Initial Catalog=t-agDatabase;" + @"Integrated Security=True;" + @"Pooling=False;";
         public static List<Tour> getAllTours()
         {
+            logger.Info("Get all tours");
             List<Tour> tours = new List<Tour>();
             try
             {
@@ -50,6 +52,7 @@ namespace t_ag.DAO
             }
             catch (SqlException ex)
             {
+                logger.Error("Cannot get all tours: " + ex.Message);
                 throw ex;
             }
             return tours;
@@ -57,6 +60,7 @@ namespace t_ag.DAO
 
         public static int addTour(Tour tour)
         {
+            logger.Info("Add tour");
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectonString))
@@ -88,12 +92,14 @@ namespace t_ag.DAO
             }
             catch (SqlException ex)
             {
+                logger.Error("Cannot add tour: " + ex.Message);
                 throw ex;
             }
         }
 
         private static void addFeedback(int tourId, string feedback)
         {
+            logger.Info("Add feedback");
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectonString))
@@ -109,12 +115,14 @@ namespace t_ag.DAO
             }
             catch (SqlException ex)
             {
+                logger.Error("Cannot add feedback: " + ex.Message);
                 throw ex;
             }
         }
 
         public static Tour getTourById(int id)
         {
+            logger.Info("Get tour by id: " + id);
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectonString))
@@ -151,11 +159,13 @@ namespace t_ag.DAO
             }
             catch (SqlException ex)
             {
+                logger.Error("Cannot get tour by id (Id: " + id + "): " + ex.Message);
                 throw ex;
             }
             catch (InvalidOperationException ex)
             {
                 // No such id
+                logger.Error("Cannot get tour by id (Wrong id: " + id + "): " + ex.Message);
                 throw ex;
             }
         }
