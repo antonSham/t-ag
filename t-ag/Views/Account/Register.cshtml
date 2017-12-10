@@ -1,0 +1,31 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Register</h2>
+
+<form method="post" action="/Account/Register">
+    <table>
+        @if (ViewBag.error_message != null)
+        {
+            <tr>
+                <td colspan="2"><h2>@ViewBag.error_message</h2></td>
+            </tr>
+        }
+        <tr>
+            <td><p>Login: </p></td>
+            <td><input type="text" name="login" /></td>
+        </tr>
+        <tr>
+            <td><p>Password: </p></td>
+            <td><input type="password" name="password1" /></td>
+        </tr>
+        <tr>
+            <td><p>Password (one more time): </p></td>
+            <td><input type="password" name="password2" /></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="push" /></td>
+        </tr>
+    </table>
+</form>

@@ -53,7 +53,7 @@ namespace t_ag.DAO
                 using (SqlConnection connection = new SqlConnection(connectonString))
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand("INSERT INTO [User] ([type], [loging], [password]) VALUES (@role, @login, @password)", connection);
+                    SqlCommand command = new SqlCommand("INSERT INTO [User] ([type], [loging], [password]) VALUES (@role, @login, @password); SELECT SCOPE_IDENTITY()", connection);
                     command.Parameters.Add("@role", SqlDbType.VarChar);
                     command.Parameters.Add("@login", SqlDbType.VarChar);
                     command.Parameters.Add("@password", SqlDbType.VarChar);
@@ -62,15 +62,7 @@ namespace t_ag.DAO
                     command.Parameters["@login"].Value = user.login;
                     command.Parameters["@password"].Value = user.password;
 
-                    command.ExecuteNonQuery();
-
-                    SqlCommand command2 = new SqlCommand("SELECT SCOPE_IDENTITY()", connection);
-                    SqlDataReader reader = command2.ExecuteReader();
-
-                    reader.Read();
-                    int userId = (int)reader[0];
-
-                    return userId;
+                    return Convert.ToInt32(command.ExecuteScalar());
                 }
             }
             catch (SqlException ex)

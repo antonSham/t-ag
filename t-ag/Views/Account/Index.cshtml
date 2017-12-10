@@ -3,13 +3,17 @@
 }
 
 <div>
-    @if (ViewBag.authorized)
+    @if (ViewBag.User != null)
     {
-        <h2>Hello, @ViewBag.name</h2>
-        <p>role: @ViewBag.role</p>
+        <h2>Hello, @ViewBag.User.login</h2>
+        <p>role: @ViewBag.User.role</p>
+        @Html.ActionLink("Logout", "Logout", "Account")
     }
     else
     {
         <p>You are not authorized</p>
+        @Html.ActionLink("Login", "Login", "Account")
+        <br />
+        @Html.ActionLink("Register", "Register", "Account")
     }
 </div>

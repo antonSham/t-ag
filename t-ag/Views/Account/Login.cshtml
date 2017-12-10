@@ -1,0 +1,27 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Login form</h2>
+
+<form method="post" action="/Account/Login">
+    <table>
+        @if (ViewBag.loging_message != null)
+        {
+            <tr>
+                <td colspan="2"><h2>@ViewBag.loging_message</h2></td>
+            </tr>
+        }
+        <tr>
+            <td><p>Login: </p></td>
+            <td><input type="text" name="login" /></td>
+        </tr>
+        <tr>
+            <td><p>Password: </p></td>
+            <td><input type="password" name="password" /></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="push" /></td>
+        </tr>
+    </table>
+</form>
