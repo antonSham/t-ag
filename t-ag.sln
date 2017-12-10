@@ -5,8 +5,6 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "t-ag", "t-ag\t-ag.csproj", "{DC9DA6DB-1995-4343-9C70-20707B7E6561}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "t-agDatabase", "t-agDatabase\t-agDatabase.sqlproj", "{2E98E700-17D2-43D6-BAA9-A41940835294}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,12 +15,6 @@ Global
 		{DC9DA6DB-1995-4343-9C70-20707B7E6561}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC9DA6DB-1995-4343-9C70-20707B7E6561}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC9DA6DB-1995-4343-9C70-20707B7E6561}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2E98E700-17D2-43D6-BAA9-A41940835294}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2E98E700-17D2-43D6-BAA9-A41940835294}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2E98E700-17D2-43D6-BAA9-A41940835294}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{2E98E700-17D2-43D6-BAA9-A41940835294}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2E98E700-17D2-43D6-BAA9-A41940835294}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2E98E700-17D2-43D6-BAA9-A41940835294}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
