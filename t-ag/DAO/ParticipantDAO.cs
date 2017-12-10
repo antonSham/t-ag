@@ -39,8 +39,9 @@ namespace t_ag.DAO
             }
             catch (SqlException ex)
             {
-                logger.Error("Cannot get all participants: " + ex.Message);
-                throw ex;
+                string message = "Cannot get all participants: " + ex.Message;
+                logger.Error(message);
+                throw new DOAException(message, ex);
             }
             return participants;
         }
@@ -75,8 +76,9 @@ namespace t_ag.DAO
             }
             catch (SqlException ex)
             {
-                logger.Error("Cannot add participant: " + ex.Message);
-                throw ex;
+                string message = "Cannot add participant: " + ex.Message;
+                logger.Error(message);
+                throw new DOAException(message, ex);
             }
         }
 
@@ -108,14 +110,16 @@ namespace t_ag.DAO
             }
             catch (SqlException ex)
             {
-                logger.Error("Cannot get participant by id (Id: " + id + "): " + ex.Message);
-                throw ex;
+                string message = "Cannot get participant by id (Id: " + id + "): " + ex.Message;
+                logger.Error(message);
+                throw new DOAException(message, ex);
             }
             catch (InvalidOperationException ex)
             {
                 // No such id
-                logger.Error("Cannot get participant by id (Wrong id: " + id + "): " + ex.Message);
-                throw ex;
+                string message = "Cannot get participant by id (Wrong id: " + id + "): " + ex.Message;
+                logger.Error(message);
+                throw new DOAException(message, ex);
             }
         }
     }

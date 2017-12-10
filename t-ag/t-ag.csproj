@@ -199,6 +199,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\LogingController.cs" />
+    <Compile Include="DAO\DOAException.cs" />
     <Compile Include="DAO\OrderDAO.cs" />
     <Compile Include="DAO\ParticipantDAO.cs" />
     <Compile Include="DAO\TourDAO.cs" />

@@ -38,8 +38,9 @@ namespace t_ag.DAO
                 } 
             } catch (SqlException ex)
             {
-                logger.Error("Cannot get all users: " + ex.Message);
-                throw ex;
+                string message = "Cannot get all users: " + ex.Message;
+                logger.Error(message);
+                throw new DOAException(message, ex);
             }
             return users;
         }
@@ -74,8 +75,9 @@ namespace t_ag.DAO
             }
             catch (SqlException ex)
             {
-                logger.Error("Cannot add user: " + ex.Message);
-                throw ex;
+                string message = "Cannot add user: " + ex.Message;
+                logger.Error(message);
+                throw new DOAException(message, ex);
             }
         }
 
@@ -107,14 +109,16 @@ namespace t_ag.DAO
             }
             catch (SqlException ex)
             {
-                logger.Error("Cannot get user by id (Id: " + id + "): " + ex.Message);
-                throw ex;
+                string message = "Cannot get user by id (Id: " + id + "): " + ex.Message;
+                logger.Error(message);
+                throw new DOAException(message, ex);
             }
             catch (InvalidOperationException ex)
             {
                 // No such id
-                logger.Error("Cannot get user by id (Wrong id: " + id + "): " + ex.Message);
-                throw ex;
+                string message = "Cannot get user by id (Wrong id: " + id + "): " + ex.Message;
+                logger.Error(message);
+                throw new DOAException(message, ex);
             }
         }
     }

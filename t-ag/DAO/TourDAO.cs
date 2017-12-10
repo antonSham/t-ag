@@ -52,8 +52,9 @@ namespace t_ag.DAO
             }
             catch (SqlException ex)
             {
-                logger.Error("Cannot get all tours: " + ex.Message);
-                throw ex;
+                string message = "Cannot get all tours: " + ex.Message;
+                logger.Error(message);
+                throw new DOAException(message, ex);
             }
             return tours;
         }
@@ -92,8 +93,9 @@ namespace t_ag.DAO
             }
             catch (SqlException ex)
             {
-                logger.Error("Cannot add tour: " + ex.Message);
-                throw ex;
+                string message = "Cannot add tour: " + ex.Message;
+                logger.Error(message);
+                throw new DOAException(message, ex);
             }
         }
 
@@ -115,8 +117,9 @@ namespace t_ag.DAO
             }
             catch (SqlException ex)
             {
-                logger.Error("Cannot add feedback: " + ex.Message);
-                throw ex;
+                string message = "Cannot add feedback: " + ex.Message;
+                logger.Error(message);
+                throw new DOAException(message, ex);
             }
         }
 
@@ -159,14 +162,16 @@ namespace t_ag.DAO
             }
             catch (SqlException ex)
             {
-                logger.Error("Cannot get tour by id (Id: " + id + "): " + ex.Message);
-                throw ex;
+                string message = "Cannot get tour by id (Id: " + id + "): " + ex.Message;
+                logger.Error(message);
+                throw new DOAException(message, ex);
             }
             catch (InvalidOperationException ex)
             {
                 // No such id
-                logger.Error("Cannot get tour by id (Wrong id: " + id + "): " + ex.Message);
-                throw ex;
+                string message = "Cannot get tour by id (Wrong id: " + id + "): " + ex.Message;
+                logger.Error(message);
+                throw new DOAException(message, ex);
             }
         }
     }
