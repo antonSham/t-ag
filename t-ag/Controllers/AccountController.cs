@@ -3,21 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 using t_ag.DAO;
 using t_ag.Models;
 
 namespace t_ag.Controllers
 {
-    public class LogingController : Controller
+    public class AccountController : Controller
     {
-        // GET: Loging
+        
         public ActionResult Index2()
         {
             return View();
         }
 
-        public string Index()
+        // GET: Account
+        public string Index(RequestContext requestContext)
         {
             List<User> L = UserDAO.getAllUsers();
 
