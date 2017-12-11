@@ -14,7 +14,7 @@ namespace t_ag.DAO
     class OrderDAO
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
-        private static string connectonString = @"Data Source=LOCALHOST\SQLEXPRESS;" + @"Initial Catalog=t-agDatabase;" + @"Integrated Security=True;" + @"Pooling=False;";
+        private static string connectonString = @"Data Source=LOCALHOST\SQLEXPRESS;" + @"Initial Catalog=t-agDatabase;" + @"Integrated Security=True;" + @"Pooling=False;" + @"MultipleActiveResultSets=True";
         public static List<Order> getAllOrders()
         {
             logger.Info("Get all orders");

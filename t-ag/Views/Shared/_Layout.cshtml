@@ -33,6 +33,10 @@
                         {
                             @Html.ActionLink("Список туров", "Index", "Tour", null, new { @class = "nav-link" })
                         }
+                        @if (ViewBag.User != null)
+                        {
+                            @Html.ActionLink("Список заказов", "Index", "Order", null, new { @class = "nav-link" })
+                        }
                         @if (ViewBag.User != null && ViewBag.user.role == "head")
                         {
                             @Html.ActionLink("Редактировать роли", "Index", "Head", null, new { @class = "nav-link" })

@@ -1,0 +1,37 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Заказы</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            @if (!ViewBag.mine)
+            {
+                <td>Пользователь</td>
+            }
+            <td>Страна</td>
+            <td>Вид отдыха</td>
+            <td>Описание</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0, number = 1; i < ViewBag.allOrders.Count; i++)
+        {
+            <tr>
+                <th scope="row">@(number++)</th>
+                @if (!ViewBag.mine)
+                {
+                    <td>@ViewBag.allOrders[i].customer.login</td>
+                }
+                <td>@ViewBag.allOrders[i].tour.country</td>
+                <td>@ViewBag.allOrders[i].tour.type</td>
+                <td>@ViewBag.allOrders[i].tour.description</td>
+                <td>@Html.ActionLink("Подробнее", "More", "Order", new { orderId = ViewBag.allOrders[i].id }, null)</td>
+            </tr>
+        }
+    </tbody>
+</table>
