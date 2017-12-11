@@ -1,0 +1,29 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Туры</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <td>Страна</td>
+            <td>Вид отдыха</td>
+            <td>Описание</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0, number = 1; i < ViewBag.allTours.Count; i++)
+        {
+            <tr>
+                <th scope="row">@(number++)</th>
+                <td>@ViewBag.allTours[i].country</td>
+                <td>@ViewBag.allTours[i].type</td>
+                <td>@ViewBag.allTours[i].description</td>
+                <td>@Html.ActionLink("Подробнее", "More", "Tour", new { tourId=ViewBag.allTours[i].id }, null)</td>
+            </tr>
+        }
+    </tbody>
+</table>

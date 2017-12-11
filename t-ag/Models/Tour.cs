@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace t_ag.Models
 {
-    class Tour
+    public class Tour
     {
         public int id { set; get; }
         public String country { set; get; }

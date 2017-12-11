@@ -205,6 +205,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HeadController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TourController.cs" />
     <Compile Include="DAO\DOAException.cs" />
     <Compile Include="DAO\OrderDAO.cs" />
     <Compile Include="DAO\ParticipantDAO.cs" />
@@ -263,6 +264,8 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Head\Index.cshtml" />
+    <Content Include="Views\Tour\Index.cshtml" />
+    <Content Include="Views\Tour\More.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
