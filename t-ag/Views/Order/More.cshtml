@@ -14,6 +14,18 @@
     <li>Внесённая сумма: @ViewBag.order.amount</li>
 </ul>
 
+@if (ViewBag.order.amount == 0)
+{
+    if (ViewBag.user.role == "customer")
+    {
+        <p>@Html.ActionLink("Отменить", "Cancel", "Order", new { orderId = ViewBag.order.id }, null)</p>
+    }
+    else
+    {
+        <p>@Html.ActionLink("Подтвердить оплату", "CommitAmmount", "Order", new { orderId = ViewBag.order.id }, null)</p>
+    }
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -35,11 +47,6 @@
         }
     </tbody>
 </table>
-
-@if (ViewBag.user.role == "customer")
-{
-    <p>@Html.ActionLink("Отменить", "Cancel", "Order", new { orderId = ViewBag.order.id }, null)</p>
-}
 
 <form method="post" action="/Tour/Feedback">
     <input type="hidden" name="orderId" value="@ViewBag.order.id" />
