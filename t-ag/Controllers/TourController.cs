@@ -177,5 +177,28 @@ namespace t_ag.Controllers
 
             return RedirectToAction("More", "Tour", new { tourId=tourId });
         }
+
+        [HttpGet]
+        public ActionResult Delete(int? tourId)
+        {
+            User user = (User)Session["User"];
+
+            if (user == null || user.role == "customer")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            ViewBag.user = user;
+
+
+            if (tourId == null)
+            {
+                return RedirectToAction("Index", "Tour");
+            }
+
+            TourDAO.deleteTourById((int)tourId);
+
+            return RedirectToAction("Index", "Tour");
+        }
     }
 }

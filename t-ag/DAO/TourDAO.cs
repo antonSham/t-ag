@@ -125,6 +125,30 @@ namespace t_ag.DAO
             }
         }
 
+        public static void deleteTourById(int id)
+        {
+            logger.Info("Delete tour by id: " + id);
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectonString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("DELETE FROM [TourFeedback] WHERE [TourId]=@id; DELETE FROM [Tour] WHERE [Id]=@id", connection);
+                    command.Parameters.Add("@id", SqlDbType.Int);
+
+                    command.Parameters["@id"].Value = id;
+
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (SqlException ex)
+            {
+                string message = "Cannot delete tour (id: " + id + "): " + ex.Message;
+                logger.Error(message);
+                throw new DOAException(message, ex);
+            }
+        }
+
         public static void addFeedback(int tourId, string feedback)
         {
             logger.Info("Add feedback");

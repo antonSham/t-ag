@@ -21,6 +21,8 @@
 else
 {
     @Html.ActionLink("Обновить", "Update", "Tour", new { tourId = ViewBag.tour.id }, null)
+    <br />
+    @Html.ActionLink("Удалить", "Delete", "Tour", new { tourId = ViewBag.tour.id }, null)
 }
 
 <table class="table">
