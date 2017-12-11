@@ -28,7 +28,11 @@
             <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
                 <ul class="nav nav-pills flex-column">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Главная</a>
+                        @Html.ActionLink("Главная", "Index", "Home", null, new { @class = "nav-link" })
+                        @if (ViewBag.User != null && ViewBag.user.role == "head")
+                        {
+                            @Html.ActionLink("Редактировать роли", "Index", "Head", null, new { @class = "nav-link" })
+                        }
                     </li>
                 </ul>
             </nav>

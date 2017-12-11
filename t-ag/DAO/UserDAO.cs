@@ -73,6 +73,32 @@ namespace t_ag.DAO
             }
         }
 
+        public static void updateRole(int id, string newRole)
+        {
+            logger.Info("Update user role (id: " + id + ", new role: " + newRole + ")");
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectonString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("UPDATE [User] SET type=@role WHERE Id=@id", connection);
+                    command.Parameters.Add("@role", SqlDbType.VarChar);
+                    command.Parameters.Add("@id", SqlDbType.Int);
+
+                    command.Parameters["@role"].Value = newRole;
+                    command.Parameters["@id"].Value = id;
+
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (SqlException ex)
+            {
+                string message = "Cannot update user role: " + ex.Message;
+                logger.Error(message);
+                throw new DOAException(message, ex);
+            }
+        }
+
         public static User getUserById(int id)
         {
             logger.Info("Get user by id: " + id);
