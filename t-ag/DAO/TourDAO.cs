@@ -76,7 +76,7 @@ namespace t_ag.DAO
                     command.Parameters["@country"].Value = tour.country;
                     command.Parameters["@type"].Value = tour.type;
                     command.Parameters["@price"].Value = tour.price;
-                    command.Parameters["@password"].Value = tour.description;
+                    command.Parameters["@description"].Value = tour.description;
 
                     int tourId = Convert.ToInt32(command.ExecuteScalar());
 

@@ -89,5 +89,43 @@ namespace t_ag.Controllers
 
             return RedirectToAction("More", "Order", new { orderId=order.id });
         }
+
+        [HttpGet]
+        public ActionResult Add()
+        {
+            User user = (User)Session["User"];
+
+            if (user == null || user.role == "customer")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            ViewBag.user = user;
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Add(string country, string type, int price, string description)
+        {
+            User user = (User)Session["User"];
+
+            if (user == null || user.role == "customer")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            ViewBag.user = user;
+
+            Tour tour = new Tour();
+            tour.country = country;
+            tour.type = type;
+            tour.price = price;
+            tour.description = description;
+            tour.feedbacks = new List<string>();
+            TourDAO.addTour(tour);
+
+            return RedirectToAction("Index", "Tour");
+        }
     }
 }

@@ -274,6 +274,7 @@
     <Content Include="Views\Order\More.cshtml" />
     <Content Include="Views\Order\Make.cshtml" />
     <Content Include="Views\Statistics\Index.cshtml" />
+    <Content Include="Views\Tour\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -27,3 +27,8 @@
         }
     </tbody>
 </table>
+
+@if (ViewBag.user.role != "customer")
+{
+    <p>@Html.ActionLink("Добавить тур", "Add", "Tour")</p>
+}
