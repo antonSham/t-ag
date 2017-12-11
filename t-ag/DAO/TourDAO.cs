@@ -93,7 +93,7 @@ namespace t_ag.DAO
             }
         }
 
-        private static void addFeedback(int tourId, string feedback)
+        public static void addFeedback(int tourId, string feedback)
         {
             logger.Info("Add feedback");
             try

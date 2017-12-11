@@ -54,5 +54,40 @@ namespace t_ag.Controllers
 
             return View();
         }
+
+        public ActionResult Feedback(int? orderId, string feedback)
+        {
+            User user = (User)Session["User"];
+
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            ViewBag.user = user;
+
+            Order order;
+            if (orderId == null)
+            {
+                return RedirectToAction("Index", "Order");
+            }
+            try
+            {
+                order = OrderDAO.getOrderById((int)orderId);
+            }
+            catch (DOAException)
+            {
+                return RedirectToAction("Index", "Order");
+            }
+
+            if (order.customer.id != user.id)
+            {
+                return RedirectToAction("Index", "Order");
+            }
+
+            TourDAO.addFeedback(order.tour.id, feedback);
+
+            return RedirectToAction("More", "Order", new { orderId=order.id });
+        }
     }
 }

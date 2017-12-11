@@ -40,3 +40,17 @@
 {
     <p>@Html.ActionLink("Отменить", "Cancel", "Order", new { orderId = ViewBag.order.id }, null)</p>
 }
+
+<form method="post" action="/Tour/Feedback">
+    <input type="hidden" name="orderId" value="@ViewBag.order.id" />
+    <table>
+        <tr>
+            <td><p>Отзыв: </p></td>
+            <td><input type="text" name="feedback" /></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Отправить отзыв" /></td>
+        </tr>
+    </table>
+
+</form>
