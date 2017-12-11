@@ -5,24 +5,47 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>T-ag | @ViewBag.Title</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-
+    @Styles.Render("~/Content/bootstrap.min.css")
+    @Styles.Render("~/Content/Site.css")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-       
+    <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top" id="top-menu">
+        @Html.ActionLink("T-ag", "Index", "Account", null, new { @class="navbar-brand" })
+    </nav>
+    @if (ViewBag.user != null)
+    {
+        <div>User: @ViewBag.user.login</div>
+        @Html.ActionLink("Выйти", "Logout", "Account")
+    }
+    else
+    {
+        @Html.ActionLink("Войти", "Login", "Account")
+        <br />
+        @Html.ActionLink("Зарегистрироваться", "Register", "Account")
+    }
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Главная</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="col-sm-9">
+                @RenderBody()
+            </div>
+        </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
+    <div>    
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year</p>
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
+    @Scripts.Render("~/Scripts/bootstrap.min.js")
     @RenderSection("scripts", required: false)
 </body>
 </html>
