@@ -67,7 +67,7 @@ namespace t_ag.DAO
                 using (SqlConnection connection = new SqlConnection(connectonString))
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand("INSERT INTO [Order] ([TourId], [CustomerIs], [EmployeeId], [Amount]) VALUES (@tour, @customer, @employee, @amount)", connection);
+                    SqlCommand command = new SqlCommand("INSERT INTO [Order] ([TourId], [CustomerIs], [EmployeeId], [Amount]) VALUES (@tour, @customer, @employee, @amount); SELECT SCOPE_IDENTITY()", connection);
                     command.Parameters.Add("@tour", SqlDbType.Int);
                     command.Parameters.Add("@customer", SqlDbType.Int);
                     command.Parameters.Add("@employee", SqlDbType.Int);
@@ -78,13 +78,7 @@ namespace t_ag.DAO
                     command.Parameters["@employee"].Value = order.employee.id;
                     command.Parameters["@amount"].Value = order.amount;
 
-                    command.ExecuteNonQuery();
-
-                    SqlCommand command2 = new SqlCommand("SELECT SCOPE_IDENTITY()", connection);
-                    SqlDataReader reader = command2.ExecuteReader();
-
-                    reader.Read();
-                    int orderId = (int)reader[0];
+                    int orderId = Convert.ToInt32(command.ExecuteScalar());
 
                     order.participants.ForEach(el => addParticipant(orderId, el.id));
 
@@ -113,6 +107,8 @@ namespace t_ag.DAO
 
                     command.Parameters["@order"].Value = orderId;
                     command.Parameters["@participant"].Value = participantId;
+
+                    command.ExecuteNonQuery();
                 }
             }
             catch (SqlException ex)

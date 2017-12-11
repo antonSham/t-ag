@@ -67,7 +67,7 @@ namespace t_ag.DAO
                 using (SqlConnection connection = new SqlConnection(connectonString))
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand("INSERT INTO [Tour] ([Country], [Type], [Price], [Description]) VALUES (@country, @type, @price, @description)", connection);
+                    SqlCommand command = new SqlCommand("INSERT INTO [Tour] ([Country], [Type], [Price], [Description]) VALUES (@country, @type, @price, @description); SELECT SCOPE_IDENTITY()", connection);
                     command.Parameters.Add("@country", SqlDbType.VarChar);
                     command.Parameters.Add("@type", SqlDbType.VarChar);
                     command.Parameters.Add("@price", SqlDbType.Int);
@@ -78,13 +78,7 @@ namespace t_ag.DAO
                     command.Parameters["@price"].Value = tour.price;
                     command.Parameters["@password"].Value = tour.description;
 
-                    command.ExecuteNonQuery();
-
-                    SqlCommand command2 = new SqlCommand("SELECT SCOPE_IDENTITY()", connection);
-                    SqlDataReader reader = command2.ExecuteReader();
-
-                    reader.Read();
-                    int tourId = (int)reader[0];
+                    int tourId = Convert.ToInt32(command.ExecuteScalar());
 
                     tour.feedbacks.ForEach(el => addFeedback(tourId, el));
 
@@ -113,6 +107,8 @@ namespace t_ag.DAO
 
                     command.Parameters["@tourId"].Value = tourId;
                     command.Parameters["@feedback"].Value = feedback;
+
+                    command.ExecuteNonQuery();
                 }
             }
             catch (SqlException ex)
@@ -151,7 +147,7 @@ namespace t_ag.DAO
                     command2.Parameters.Add("@id", SqlDbType.Int);
                     command2.Parameters["@id"].Value = el.id;
 
-                    SqlDataReader reader2 = command.ExecuteReader();
+                    SqlDataReader reader2 = command2.ExecuteReader();
                     while (reader2.Read())
                     {
                         el.feedbacks.Add((string)reader2["Feedback"]);
