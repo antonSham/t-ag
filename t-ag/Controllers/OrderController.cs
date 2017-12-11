@@ -147,5 +147,22 @@ namespace t_ag.Controllers
 
             return RedirectToAction("Index", "Order");
         }
+
+        [HttpGet]
+        public ActionResult Cancel(int orderId)
+        {
+            User user = (User)Session["User"];
+
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            ViewBag.user = user;
+
+            OrderDAO.cancelOrder(orderId);
+
+            return RedirectToAction("Index", "Order");
+        }
     }
 }

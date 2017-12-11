@@ -143,6 +143,30 @@ namespace t_ag.DAO
             }
         }
 
+        public static void cancelOrder(int orderId)
+        {
+            logger.Info("Cancel order");
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectonString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("UPDATE [Order] SET Finished=0 WHERE Id=@id", connection);
+                    command.Parameters.Add("@id", SqlDbType.Int);
+
+                    command.Parameters["@id"].Value = orderId;
+
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (SqlException ex)
+            {
+                string message = "Cannot cancel order" + ex.Message;
+                logger.Error(message);
+                throw new DOAException(message, ex);
+            }
+        }
+
         public static Order getOrderById(int id)
         {
             logger.Info("Get order by id: " + id);

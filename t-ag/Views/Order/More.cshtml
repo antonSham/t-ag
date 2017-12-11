@@ -35,3 +35,8 @@
         }
     </tbody>
 </table>
+
+@if (ViewBag.user.role == "customer")
+{
+    <p>@Html.ActionLink("Отменить", "Cancel", "Order", new { orderId = ViewBag.order.id }, null)</p>
+}
