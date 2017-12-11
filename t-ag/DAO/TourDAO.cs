@@ -93,6 +93,38 @@ namespace t_ag.DAO
             }
         }
 
+        public static void updateTour(Tour tour)
+        {
+            logger.Info("Update tour");
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectonString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("UPDATE [Tour] SET [Country]=@country, [Type]=@type, [Price]=@price, [Description]=@description WHERE [Id]=@id", connection);
+                    command.Parameters.Add("@id", SqlDbType.Int);
+                    command.Parameters.Add("@country", SqlDbType.VarChar);
+                    command.Parameters.Add("@type", SqlDbType.VarChar);
+                    command.Parameters.Add("@price", SqlDbType.Int);
+                    command.Parameters.Add("@description", SqlDbType.Text);
+
+                    command.Parameters["@id"].Value = tour.id;
+                    command.Parameters["@country"].Value = tour.country;
+                    command.Parameters["@type"].Value = tour.type;
+                    command.Parameters["@price"].Value = tour.price;
+                    command.Parameters["@description"].Value = tour.description;
+
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (SqlException ex)
+            {
+                string message = "Cannot update tour: " + ex.Message;
+                logger.Error(message);
+                throw new DOAException(message, ex);
+            }
+        }
+
         public static void addFeedback(int tourId, string feedback)
         {
             logger.Info("Add feedback");

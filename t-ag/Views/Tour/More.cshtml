@@ -18,6 +18,10 @@
 {
     @Html.ActionLink("Заказать", "Make", "Order", new { tourId = ViewBag.tour.id }, null)
 }
+else
+{
+    @Html.ActionLink("Обновить", "Update", "Tour", new { tourId = ViewBag.tour.id }, null)
+}
 
 <table class="table">
     <thead>

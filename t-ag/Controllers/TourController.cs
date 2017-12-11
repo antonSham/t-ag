@@ -127,5 +127,55 @@ namespace t_ag.Controllers
 
             return RedirectToAction("Index", "Tour");
         }
+
+        [HttpGet]
+        public ActionResult Update(int? tourId)
+        {
+            User user = (User)Session["User"];
+
+            if (user == null || user.role == "customer")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            ViewBag.user = user;
+
+            if (tourId == null)
+            {
+                return RedirectToAction("Index", "Tour");
+            }
+
+            ViewBag.tour = TourDAO.getTourById((int)tourId); ;
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Update(int? tourId, string country, string type, int price, string description)
+        {
+            User user = (User)Session["User"];
+
+            if (user == null || user.role == "customer")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            ViewBag.user = user;
+
+
+            if (tourId == null)
+            {
+                return RedirectToAction("Index", "Tour");
+            }
+
+            Tour tour = TourDAO.getTourById((int)tourId);
+            tour.country = country;
+            tour.type = type;
+            tour.price = price;
+            tour.description = description;
+            TourDAO.updateTour(tour);
+
+            return RedirectToAction("More", "Tour", new { tourId=tourId });
+        }
     }
 }

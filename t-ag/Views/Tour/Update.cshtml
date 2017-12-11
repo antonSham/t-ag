@@ -1,0 +1,30 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Добавить тур</h2>
+
+<form method="post" action="/Tour/Update">
+    <input type="hidden" name="tourId" value="@ViewBag.tour.id"/>
+    <table>
+        <tr>
+            <td><p>Страна: </p></td>
+            <td><input type="text" name="country" value="@ViewBag.tour.country" /></td>
+        </tr>
+        <tr>
+            <td><p>Вид отдыха: </p></td>
+            <td><input type="text" name="type" value="@ViewBag.tour.type" /></td>
+        </tr>
+        <tr>
+            <td><p>Цена: </p></td>
+            <td><input type="text" name="price" value="@ViewBag.tour.price" /></td>
+        </tr>
+        <tr>
+            <td><p>Описание: </p></td>
+            <td><input type="text" name="description" value="@ViewBag.tour.description" /></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Обновить" /></td>
+        </tr>
+    </table>
+</form>
