@@ -1,0 +1,74 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Статистика по странам</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <td>Страна</td>
+            <td>Количество заказов</td>
+            <td>Полученная сумма</td>
+            <td>Средняя выручка за заказ</td>
+            <td>Отменённых заказов</td>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0, number = 1; i < ViewBag.countryStatistics.Count; i++)
+        {
+            <tr>
+                <th scope="row">@(number++)</th>
+                <td>@ViewBag.countryStatistics[i].id</td>
+                <td>@ViewBag.countryStatistics[i].orders</td>
+                <td>@ViewBag.countryStatistics[i].total</td>
+                @if (ViewBag.countryStatistics[i].avg != null)
+                {
+                    <td>@ViewBag.countryStatistics[i].avg</td>
+                }
+                else
+                {
+                    <td>-</td>
+                }
+                <td>@ViewBag.countryStatistics[i].canceled</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Статистика по видам отдыха</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <td>Вид отдыха</td>
+            <td>Количество заказов</td>
+            <td>Полученная сумма</td>
+            <td>Средняя выручка за заказ</td>
+            <td>Отменённых заказов</td>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0, number = 1; i < ViewBag.typeStatistics.Count; i++)
+        {
+            <tr>
+                <th scope="row">@(number++)</th>
+                <td>@ViewBag.typeStatistics[i].id</td>
+                <td>@ViewBag.typeStatistics[i].orders</td>
+                <td>@ViewBag.typeStatistics[i].total</td>
+                @if (ViewBag.typeStatistics[i].avg != null)
+                {
+                    <td>@ViewBag.typeStatistics[i].avg</td>
+                }
+                else
+                {
+                    <td>-</td>
+                }
+                <td>@ViewBag.typeStatistics[i].canceled</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

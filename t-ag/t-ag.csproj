@@ -206,15 +206,18 @@
     <Compile Include="Controllers\HeadController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\TourController.cs" />
     <Compile Include="DAO\DOAException.cs" />
     <Compile Include="DAO\OrderDAO.cs" />
     <Compile Include="DAO\ParticipantDAO.cs" />
+    <Compile Include="DAO\StatisticsDAO.cs" />
     <Compile Include="DAO\TourDAO.cs" />
     <Compile Include="DAO\UserDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Statistics.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Participant.cs" />
     <Compile Include="Models\Tour.cs" />
@@ -270,6 +273,7 @@
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Order\More.cshtml" />
     <Content Include="Views\Order\Make.cshtml" />
+    <Content Include="Views\Statistics\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
