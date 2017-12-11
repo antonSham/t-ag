@@ -64,5 +64,88 @@ namespace t_ag.Controllers
 
             return View();
         }
+
+        [HttpGet]
+        public ActionResult Make(int? tourId, int? orderId)
+        {
+            User user = (User)Session["User"];
+
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            ViewBag.user = user;
+
+            if (orderId == null)
+            {
+                if (tourId == null)
+                {
+                    return RedirectToAction("Index", "Tour");
+                }
+
+                Tour tour;
+                try
+                {
+                    tour = TourDAO.getTourById((int)tourId);
+                }
+                catch (DOAException)
+                {
+                    return RedirectToAction("Index", "Tour");
+                }
+                Order order = new Order();
+                order.tour = tour;
+                order.customer = user;
+                order.participants = new List<Participant>();
+                order.id = OrderDAO.addOrder(order);
+                ViewBag.order = order;
+            } else
+            {
+                ViewBag.order = OrderDAO.getOrderById((int)orderId);
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Make(string fullName, int age, string passport, int orderId)
+        {
+            User user = (User)Session["User"];
+
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            ViewBag.user = user;
+
+            Participant participant = new Participant();
+            participant.fullName = fullName;
+            participant.age = Convert.ToInt32(age);
+            participant.passport = passport;
+
+            participant.id = ParticipantDAO.addParticipant(participant);
+
+            OrderDAO.addParticipant(orderId, participant.id);
+
+            return RedirectToAction("Make", "Order", new { orderId=orderId } );
+        }
+
+        [HttpPost]
+        public ActionResult Commit(int orderId)
+        {
+            User user = (User)Session["User"];
+
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            ViewBag.user = user;
+
+            OrderDAO.commitOrder(orderId);
+
+            return RedirectToAction("Index", "Order");
+        }
     }
 }

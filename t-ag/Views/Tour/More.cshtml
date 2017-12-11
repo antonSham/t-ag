@@ -14,6 +14,11 @@
     <li>Описание: @ViewBag.tour.description</li>
 </ul>
 
+@if (ViewBag.user.role == "customer")
+{
+    @Html.ActionLink("Заказать", "Make", "Order", new { tourId = ViewBag.tour.id }, null)
+}
+
 <table class="table">
     <thead>
         <tr>

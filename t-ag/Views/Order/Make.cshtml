@@ -1,0 +1,65 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Тур</h2>
+
+<ul>
+    <li>Страна: @ViewBag.order.tour.country</li>
+    <li>Вид отдыха: @ViewBag.order.tour.type</li>
+    <li>Цена: @ViewBag.order.tour.price</li>
+    <li>Описание: @ViewBag.order.tour.description</li>
+</ul>
+
+<h2>Участники</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <td>ФИО</td>
+            <td>Возраст</td>
+            <td>Пасспорт</td>
+        </tr>
+    </thead>
+    <tbody>
+        @if (ViewBag.order.participants != null)
+        {
+            for (int i = 0, number = 1; i < ViewBag.order.participants.Count; i++)
+            {
+                <tr>
+                    <th scope="row">@(number++)</th>
+                    <td>@ViewBag.order.participants[i].fullName</td>
+                    <td>@ViewBag.order.participants[i].age</td>
+                    <td>@ViewBag.order.participants[i].passport</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<h2>Добавить</h2>
+<form method="post" action="/Order/Make">
+    <input type="hidden" name="orderId" value="@ViewBag.order.id" />
+    <table>
+        <tr>
+            <td><p>ФИО: </p></td>
+            <td><input type="text" name="fullName" /></td>
+        </tr>
+        <tr>
+            <td><p>Возраст: </p></td>
+            <td><input type="text" name="age" /></td>
+        </tr>
+        <tr>
+            <td><p>Пасспорт: </p></td>
+            <td><input type="text" name="passport" /></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Добавить" /></td>
+        </tr>
+    </table>
+</form>
+<form method="post" action="/Order/Commit">
+    <input type="hidden" name="orderId" value="@ViewBag.order.id" />
+    <input type="submit" value="Забронировать" />
+</form>

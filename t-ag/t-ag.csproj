@@ -269,6 +269,7 @@
     <Content Include="Views\Tour\More.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Order\More.cshtml" />
+    <Content Include="Views\Order\Make.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

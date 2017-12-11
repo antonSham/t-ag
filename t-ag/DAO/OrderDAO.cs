@@ -24,7 +24,7 @@ namespace t_ag.DAO
                 using (SqlConnection connection = new SqlConnection(connectonString))
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand("SELECT * FROM [Order]", connection);
+                    SqlCommand command = new SqlCommand("SELECT * FROM [Order] WHERE [Finished]=1", connection);
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
@@ -32,7 +32,11 @@ namespace t_ag.DAO
                         el.id = (int)reader["Id"];
                         el.tour = TourDAO.getTourById((int)reader["TourId"]);
                         el.customer = UserDAO.getUserById((int)reader["CustomerId"]);
-                        el.employee = UserDAO.getUserById((int)reader["EmployeeId"]);
+                        var employeeId = reader["EmployeeId"];
+                        if (!(employeeId is DBNull))
+                        {
+                            el.employee = UserDAO.getUserById((int)employeeId);
+                        }
                         el.amount = (int)reader["Amount"];
                         el.participants = new List<Participant>();
 
@@ -67,16 +71,12 @@ namespace t_ag.DAO
                 using (SqlConnection connection = new SqlConnection(connectonString))
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand("INSERT INTO [Order] ([TourId], [CustomerIs], [EmployeeId], [Amount]) VALUES (@tour, @customer, @employee, @amount); SELECT SCOPE_IDENTITY()", connection);
+                    SqlCommand command = new SqlCommand("INSERT INTO [Order] ([TourId], [CustomerId]) VALUES (@tour, @customer); SELECT SCOPE_IDENTITY()", connection);
                     command.Parameters.Add("@tour", SqlDbType.Int);
                     command.Parameters.Add("@customer", SqlDbType.Int);
-                    command.Parameters.Add("@employee", SqlDbType.Int);
-                    command.Parameters.Add("@amount", SqlDbType.Int);
 
                     command.Parameters["@tour"].Value = order.tour.id;
                     command.Parameters["@customer"].Value = order.customer.id;
-                    command.Parameters["@employee"].Value = order.employee.id;
-                    command.Parameters["@amount"].Value = order.amount;
 
                     int orderId = Convert.ToInt32(command.ExecuteScalar());
 
@@ -93,7 +93,7 @@ namespace t_ag.DAO
             }
         }
 
-        private static void addParticipant(int orderId, int participantId)
+        public static void addParticipant(int orderId, int participantId)
         {
             logger.Info("Add participant");
             try
@@ -103,7 +103,7 @@ namespace t_ag.DAO
                     connection.Open();
                     SqlCommand command = new SqlCommand("INSERT INTO [OrderParticipant] (OrderId, ParticipantID) VALUES (@order, @participant)", connection);
                     command.Parameters.Add("@order", SqlDbType.Int);
-                    command.Parameters.Add("@participant", SqlDbType.Text);
+                    command.Parameters.Add("@participant", SqlDbType.Int);
 
                     command.Parameters["@order"].Value = orderId;
                     command.Parameters["@participant"].Value = participantId;
@@ -114,6 +114,30 @@ namespace t_ag.DAO
             catch (SqlException ex)
             {
                 string message = "Cannot add participant" + ex.Message;
+                logger.Error(message);
+                throw new DOAException(message, ex);
+            }
+        }
+
+        public static void commitOrder(int orderId)
+        {
+            logger.Info("Commit order");
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectonString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("UPDATE [Order] SET Finished=1 WHERE Id=@id", connection);
+                    command.Parameters.Add("@id", SqlDbType.Int);
+
+                    command.Parameters["@id"].Value = orderId;
+
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (SqlException ex)
+            {
+                string message = "Cannot commit order" + ex.Message;
                 logger.Error(message);
                 throw new DOAException(message, ex);
             }
@@ -139,7 +163,11 @@ namespace t_ag.DAO
                     el.id = (int)reader["Id"];
                     el.tour = TourDAO.getTourById((int)reader["TourId"]);
                     el.customer = UserDAO.getUserById((int)reader["CustomerId"]);
-                    el.employee = UserDAO.getUserById((int)reader["EmployeeId"]);
+                    var employeeId = reader["EmployeeId"];
+                    if (!(employeeId is DBNull))
+                    {
+                        el.employee = UserDAO.getUserById((int)employeeId);
+                    }
                     el.amount = (int)reader["Amount"];
                     el.participants = new List<Participant>();
 

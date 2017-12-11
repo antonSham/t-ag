@@ -54,7 +54,7 @@ namespace t_ag.DAO
                 using (SqlConnection connection = new SqlConnection(connectonString))
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand("INSERT INTO [Participant] ([Name], [Age], [Password]) VALUES (@fullName, @age, @passport); SELECT SCOPE_IDENTITY()", connection);
+                    SqlCommand command = new SqlCommand("INSERT INTO [Participant] ([Name], [Age], [Passport]) VALUES (@fullName, @age, @passport); SELECT SCOPE_IDENTITY()", connection);
                     command.Parameters.Add("@fullName", SqlDbType.VarChar);
                     command.Parameters.Add("@age", SqlDbType.Int);
                     command.Parameters.Add("@passport", SqlDbType.VarChar);
