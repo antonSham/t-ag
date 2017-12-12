@@ -10,8 +10,18 @@
 <ul>
     <li>Страна: @ViewBag.tour.country</li>
     <li>Вид отдыха: @ViewBag.tour.type</li>
-    <li>Цена: @ViewBag.tour.price</li>
+    <li>Цена: 
+        @if (ViewBag.tour.saleDate > DateTime.Now)
+        {
+            <span>@ViewBag.tour.price</span>
+        }
+        else {
+            <span><s>@ViewBag.tour.price</s> @(ViewBag.tour.price * (100 - ViewBag.tour.sale) / 100 )</span>
+        }
+    </li>
     <li>Описание: @ViewBag.tour.description</li>
+    <li>Скидка: @ViewBag.tour.sale%</li>
+    <li>Активация скидки: @ViewBag.tour.saleDate</li>
 </ul>
 
 @if (ViewBag.user.role == "customer")

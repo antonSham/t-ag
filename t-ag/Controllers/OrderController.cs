@@ -95,6 +95,7 @@ namespace t_ag.Controllers
                 }
                 Order order = new Order();
                 order.tour = tour;
+                order.price = tour.saleDate > DateTime.Now ? tour.price : tour.price * (100 - tour.sale) / 100;
                 order.customer = user;
                 order.participants = new List<Participant>();
                 order.id = OrderDAO.addOrder(order);

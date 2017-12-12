@@ -34,6 +34,8 @@ namespace t_ag.DAO
                         el.type = (string)reader["Type"];
                         el.price = (int)reader["Price"];
                         el.description = (string)reader["Description"];
+                        el.sale = (int)reader["Sale"];
+                        el.saleDate = (DateTime)reader["SaleDate"];
                         el.feedbacks = new List<String>();
 
                         SqlCommand command2 = new SqlCommand("SELECT * FROM [TourFeedback] WHERE TourId=@id", connection);
@@ -67,16 +69,20 @@ namespace t_ag.DAO
                 using (SqlConnection connection = new SqlConnection(connectonString))
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand("INSERT INTO [Tour] ([Country], [Type], [Price], [Description]) VALUES (@country, @type, @price, @description); SELECT SCOPE_IDENTITY()", connection);
+                    SqlCommand command = new SqlCommand("INSERT INTO [Tour] ([Country], [Type], [Price], [Description], [Sale], [SaleDate]) VALUES (@country, @type, @price, @description, @sale, @saleDate); SELECT SCOPE_IDENTITY()", connection);
                     command.Parameters.Add("@country", SqlDbType.VarChar);
                     command.Parameters.Add("@type", SqlDbType.VarChar);
                     command.Parameters.Add("@price", SqlDbType.Int);
                     command.Parameters.Add("@description", SqlDbType.Text);
+                    command.Parameters.Add("@sale", SqlDbType.Int);
+                    command.Parameters.Add("@saleDate", SqlDbType.SmallDateTime);
 
                     command.Parameters["@country"].Value = tour.country;
                     command.Parameters["@type"].Value = tour.type;
                     command.Parameters["@price"].Value = tour.price;
                     command.Parameters["@description"].Value = tour.description;
+                    command.Parameters["@sale"].Value = tour.sale;
+                    command.Parameters["@saleDate"].Value = tour.saleDate;
 
                     int tourId = Convert.ToInt32(command.ExecuteScalar());
 
@@ -101,18 +107,22 @@ namespace t_ag.DAO
                 using (SqlConnection connection = new SqlConnection(connectonString))
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand("UPDATE [Tour] SET [Country]=@country, [Type]=@type, [Price]=@price, [Description]=@description WHERE [Id]=@id", connection);
+                    SqlCommand command = new SqlCommand("UPDATE [Tour] SET [Country]=@country, [Type]=@type, [Price]=@price, [Description]=@description, [Sale]=@sale, [SaleDate]=@saleDate WHERE [Id]=@id", connection);
                     command.Parameters.Add("@id", SqlDbType.Int);
                     command.Parameters.Add("@country", SqlDbType.VarChar);
                     command.Parameters.Add("@type", SqlDbType.VarChar);
                     command.Parameters.Add("@price", SqlDbType.Int);
                     command.Parameters.Add("@description", SqlDbType.Text);
+                    command.Parameters.Add("@sale", SqlDbType.Int);
+                    command.Parameters.Add("@saleDate", SqlDbType.SmallDateTime);
 
                     command.Parameters["@id"].Value = tour.id;
                     command.Parameters["@country"].Value = tour.country;
                     command.Parameters["@type"].Value = tour.type;
                     command.Parameters["@price"].Value = tour.price;
                     command.Parameters["@description"].Value = tour.description;
+                    command.Parameters["@sale"].Value = tour.sale;
+                    command.Parameters["@saleDate"].Value = tour.saleDate;
 
                     command.ExecuteNonQuery();
                 }
@@ -197,6 +207,8 @@ namespace t_ag.DAO
                     el.type = (string)reader["Type"];
                     el.price = (int)reader["Price"];
                     el.description = (string)reader["Description"];
+                    el.sale = (int)reader["Sale"];
+                    el.saleDate = (DateTime)reader["SaleDate"];
                     el.feedbacks = new List<String>();
 
                     SqlCommand command2 = new SqlCommand("SELECT * FROM [TourFeedback] WHERE TourId=@id", connection);

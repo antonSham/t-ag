@@ -11,17 +11,27 @@
             <td>Страна</td>
             <td>Вид отдыха</td>
             <td>Описание</td>
+            @if (ViewBag.user.role != "customer")
+            {
+                <td>Скидка</td>
+                <td>Активация скидки</td>
+            }
             <td></td>
         </tr>
     </thead>
     <tbody>
         @for (int i = 0, number = 1; i < ViewBag.allTours.Count; i++)
         {
-            <tr>
+            <tr>  
                 <th scope="row">@(number++)</th>
                 <td>@ViewBag.allTours[i].country</td>
                 <td>@ViewBag.allTours[i].type</td>
                 <td>@ViewBag.allTours[i].description</td>
+                @if (ViewBag.user.role != "customer")
+                {
+                    <td>@ViewBag.allTours[i].sale%</td>
+                    <td>@ViewBag.allTours[i].saleDate</td>
+                }
                 <td>@Html.ActionLink("Подробнее", "More", "Tour", new { tourId=ViewBag.allTours[i].id }, null)</td>
             </tr>
         }

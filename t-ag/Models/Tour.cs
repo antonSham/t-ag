@@ -13,6 +13,8 @@ namespace t_ag.Models
         public String type { set; get; }
         public int price { set; get; }
         public String description { set; get; }
+        public int sale { set; get; }
+        public DateTime saleDate { set; get; }
         public List<String> feedbacks { set; get; }
     }
 }

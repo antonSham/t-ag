@@ -106,7 +106,7 @@ namespace t_ag.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(string country, string type, int price, string description)
+        public ActionResult Add(string country, string type, int price, string description, int sale, int year, int month, int day, int hour, int minute)
         {
             User user = (User)Session["User"];
 
@@ -122,6 +122,8 @@ namespace t_ag.Controllers
             tour.type = type;
             tour.price = price;
             tour.description = description;
+            tour.sale = sale;
+            tour.saleDate = new DateTime(year, month, day, hour, minute, 0);
             tour.feedbacks = new List<string>();
             TourDAO.addTour(tour);
 
@@ -151,7 +153,7 @@ namespace t_ag.Controllers
         }
 
         [HttpPost]
-        public ActionResult Update(int? tourId, string country, string type, int price, string description)
+        public ActionResult Update(int? tourId, string country, string type, int price, string description, int sale, int year, int month, int day, int hour, int minute)
         {
             User user = (User)Session["User"];
 
@@ -173,6 +175,8 @@ namespace t_ag.Controllers
             tour.type = type;
             tour.price = price;
             tour.description = description;
+            tour.sale = sale;
+            tour.saleDate = new DateTime(year, month, day, hour, minute, 0);
             TourDAO.updateTour(tour);
 
             return RedirectToAction("More", "Tour", new { tourId=tourId });

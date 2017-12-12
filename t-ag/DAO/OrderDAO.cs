@@ -31,6 +31,7 @@ namespace t_ag.DAO
                         Order el = new Order();
                         el.id = (int)reader["Id"];
                         el.tour = TourDAO.getTourById((int)reader["TourId"]);
+                        el.price = (int)reader["Price"];
                         el.customer = UserDAO.getUserById((int)reader["CustomerId"]);
                         var employeeId = reader["EmployeeId"];
                         if (!(employeeId is DBNull))
@@ -71,11 +72,13 @@ namespace t_ag.DAO
                 using (SqlConnection connection = new SqlConnection(connectonString))
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand("INSERT INTO [Order] ([TourId], [CustomerId]) VALUES (@tour, @customer); SELECT SCOPE_IDENTITY()", connection);
+                    SqlCommand command = new SqlCommand("INSERT INTO [Order] ([TourId], [Price], [CustomerId]) VALUES (@tour, @price, @customer); SELECT SCOPE_IDENTITY()", connection);
                     command.Parameters.Add("@tour", SqlDbType.Int);
+                    command.Parameters.Add("@price", SqlDbType.Int);
                     command.Parameters.Add("@customer", SqlDbType.Int);
 
                     command.Parameters["@tour"].Value = order.tour.id;
+                    command.Parameters["@price"].Value = order.price;
                     command.Parameters["@customer"].Value = order.customer.id;
 
                     int orderId = Convert.ToInt32(command.ExecuteScalar());
@@ -175,7 +178,7 @@ namespace t_ag.DAO
                 using (SqlConnection connection = new SqlConnection(connectonString))
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand("UPDATE [Order] SET Amount=(SELECT [Price] FROM [Tour] WHERE Id=(SELECT [TourId] FROM [Order] WHERE Id=@id)) WHERE Id=@id", connection);
+                    SqlCommand command = new SqlCommand("UPDATE [Order] SET Amount=[Price] WHERE Id=@id", connection);
                     command.Parameters.Add("@id", SqlDbType.Int);
 
                     command.Parameters["@id"].Value = orderId;
@@ -209,6 +212,7 @@ namespace t_ag.DAO
                     Order el = new Order();
                     el.id = (int)reader["Id"];
                     el.tour = TourDAO.getTourById((int)reader["TourId"]);
+                    el.price = (int)reader["Price"];
                     el.customer = UserDAO.getUserById((int)reader["CustomerId"]);
                     var employeeId = reader["EmployeeId"];
                     if (!(employeeId is DBNull))

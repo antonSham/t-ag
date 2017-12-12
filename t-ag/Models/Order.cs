@@ -10,6 +10,7 @@ namespace t_ag.Models
     {
         public int id { set; get; }
         public Tour tour { set; get; }
+        public int price { set; get; }
         public List<Participant> participants { set; get; }
         public User customer { set; get; }
         public User employee { set; get; }
